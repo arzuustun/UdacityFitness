@@ -13,6 +13,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import EntryDetail from './components/EntryDetail';
+import Live from './components/Live';
 
 const Stack = createStackNavigator();
 const Tab = Platform.OS === 'ios'
@@ -36,21 +37,32 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
             return <Ionicons name="ios-bookmarks" size={size} color={color} />;
           case 'AddEntry':
             return <FontAwesome name="plus-square" size={size} color={color} />;
-          // case 'Live':
-          //   return (
-          //     <Ionicons name="ios-speedometer" size={size} color={color} />
-          //   );
+          case 'Live':
+            return (
+              <Ionicons name="ios-speedometer" size={size} color={color} />
+            );
         }
       },
     })}
+    // tabBarOptions={{
+    //   activeTintColor: 'tomato',
+    //   inactiveTintColor: 'gray',
+    // }}
     tabBarOptions={{
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
+      activeTintColor: Platform.OS === 'ios' ? purple : white,
+      style: {
+        backgroundColor: Platform.OS === 'ios' ? white : purple,
+        shadowColor: 'rgba(0,0,0,0.24)',
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 6,
+        shadowOpacity: 1,
+      },
     }}
   >
    
     <Tab.Screen name="History" component={History} />
     <Tab.Screen name="AddEntry" component={AddEntry} />
+    <Tab.Screen name="Live" component={Live} />
   </Tab.Navigator>
   )
 
