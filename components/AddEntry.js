@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {View , Text , TouchableOpacity ,StyleSheet,Platform} from 'react-native'
-import {getMetricMetaInfo , timeToString,getDailyReminderValue } from '../utils/helpers'
+import {getMetricMetaInfo , timeToString,getDailyReminderValue,clearLocalNotification,setLocalNotification } from '../utils/helpers'
 import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
 import DateHeader from './DateHeader';
@@ -70,7 +70,8 @@ function SubmitBtn ({ onPress }) {
        
         submitEntry({ key, entry })    // Saved to "DB"
     
-        // Clear local notification
+        clearLocalNotification() // Clear local notification
+        .then(setLocalNotification)
       }
       reset = () => {
         const key = timeToString();
@@ -85,7 +86,7 @@ function SubmitBtn ({ onPress }) {
         
         removeEntry(key) // Updated "DB"
       }
-      
+
       toHome = () => {
         this.props.navigation.dispatch(
             CommonActions.goBack({

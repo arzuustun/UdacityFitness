@@ -14,6 +14,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createStackNavigator } from '@react-navigation/stack';
 import EntryDetail from './components/EntryDetail';
 import Live from './components/Live';
+import { setLocalNotification } from './utils/helpers';
 
 const Stack = createStackNavigator();
 const Tab = Platform.OS === 'ios'
@@ -67,6 +68,9 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
   )
 
   export default class App extends React.Component {
+    componentDidMount() {
+      setLocalNotification()
+    }
     render() {
       return (
         <Provider store={createStore(reducer)}>
